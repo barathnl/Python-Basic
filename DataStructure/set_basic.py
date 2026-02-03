@@ -19,6 +19,10 @@ print(type(color_set))
 print(len(color_set))
 print('red' in color_set)
 
+#Looping
+for x in color_set:
+    print(x)
+
 
 #Joining set
 set1 = {"a", "b", "c"}
