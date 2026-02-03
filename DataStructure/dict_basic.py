@@ -16,6 +16,7 @@ person_dict["age"] = 21
 person_dict.update({"age":22})
 
 print(person_dict)
+print(type(person_dict))
 print(len(person_dict))
 print(person_dict.keys()) # Return all keys
 print(person_dict.values()) # Return all values

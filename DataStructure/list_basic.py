@@ -81,6 +81,11 @@ class MyList:
 list_instance = MyList()
 
 print(list_instance)
+print(type(list_instance))
+
+list_num=[4, 5, 6]
+print(list_num)
+print(type(list_num))
 
 print("\n--- access_list ---")
 index = 0
