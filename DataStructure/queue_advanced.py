@@ -1,34 +1,63 @@
-## Queue - First In First Out (FIFO)
+"""
+PYTHON QUEUE INTERVIEW CHEAT SHEET
+-----------------------------------------------------------------------
+Property: FIFO (First-In, First-Out).
 
-# Deque is Double ended queue
+IMPLEMENTATION | MODULE             | BIG O (Push/Pop) | BEST USE CASE
+-----------------------------------------------------------------------
+deque          | collections        | O(1)             | BFS, General Queues.
+Queue          | queue              | O(1)             | Multi-threaded apps.
+list           | built-in           | O(n) for pop(0)  | NEVER use for queues.
+-----------------------------------------------------------------------
+"""
 from collections import deque
-q = deque()
-
-# Adding to end of queue
-q.append('a')
-q.append('b')
-q.append('c')
-
-# Removing from start of queue
-print(q.popleft())
-print(q.popleft())
-print(q.popleft())
-
-# Thread safe Queue
 from queue import Queue
-q = Queue(maxsize=3)
 
-# Adding to end of queue
-q.put('a')
-q.put('b')
-print(f"Current queue size {q.qsize()}")
-q.put('c')
 
-print(f"Is queue full : {q.full()}")
+def deque_revision():
+    """
+    Deque (Double-Ended Queue) is the standard for interview algorithms.
+    It provides O(1) appends and pops from both ends.
+    """
+    print("--- collections.deque (High Performance) ---")
+    message_queue = deque()
 
-# Removing from start of queue
-print(q.get())
-print(q.get())
-print(q.get())
+    # Adding to the end (Enqueue) - O(1)
+    message_queue.append('request_a')
+    message_queue.append('request_b')
+    message_queue.append('request_c')
 
-print(f"Is queue empty : {q.empty()}")
+    # Removing from the start (Dequeue) - O(1)
+    print(f"Processing: {message_queue.popleft()}")
+    print(f"Processing: {message_queue.popleft()}")
+    print(f"Processing: {message_queue.popleft()}")
+
+
+def thread_safe_queue_revision():
+    """
+    queue.Queue is designed for multi-threading.
+    It includes locking semantics to handle concurrent access.
+    """
+    print("\n--- queue.Queue (Thread-Safe) ---")
+    # maxsize=0 means infinite, otherwise it blocks when full
+    task_buffer = Queue(maxsize=3)
+
+    # Adding to queue (put)
+    task_buffer.put('task_1')
+    task_buffer.put('task_2')
+    print(f"Current size: {task_buffer.qsize()}")
+
+    task_buffer.put('task_3')
+    print(f"Is buffer full? {task_buffer.full()}")
+
+    # Removing from queue (get)
+    print(f"Executing: {task_buffer.get()}")
+    print(f"Executing: {task_buffer.get()}")
+    print(f"Executing: {task_buffer.get()}")
+
+    print(f"Is buffer empty? {task_buffer.empty()}")
+
+
+if __name__ == "__main__":
+    deque_revision()
+    thread_safe_queue_revision()

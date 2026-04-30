@@ -1,55 +1,80 @@
-#Python set - Set is unordered, unindexed , does not allow duplicate, contain different data types: string, integer and boolean
-color_set = {'red' , 'blue' , 'green' , 'red'}
-complex_color = {'crimson red'}
-number_list = [999]
-boolean_set= {1, True , 0 , False}
+"""
+PYTHON SET INTERVIEW CHEAT SHEET
+-----------------------------------------------------------------------
+Property: Unordered, Unindexed, No Duplicates, Mutable.
 
-#Ways to add value
-color_set.add('yellow')
-color_set.update(complex_color)
-color_set.update(number_list)
-
-#Ways to remove value
-color_set.remove(999) # item to remove does not exist, remove() will raise an error.
-color_set.discard(999) # item to remove does not exist, remove() will NOT raise an error.
-
-print(color_set)
-print(boolean_set)
-print(type(color_set))
-print(len(color_set))
-print('red' in color_set)
-
-#Looping
-for x in color_set:
-    print(x)
+OPERATION      | METHOD            | BIG O    | NOTES
+-----------------------------------------------------------------------
+Add            | .add(x)           | O(1)     | Instant addition.
+Remove/Discard | .remove(x)        | O(1)     | Instant removal.
+Membership     | "x" in set        | O(1)     | Fast existence check.
+Union          | set1 | set2       | O(n+m)   | All unique elements.
+Intersection   | set1 & set2       | O(min(n,m))| Only common elements.
+-----------------------------------------------------------------------
+Note: Elements must be immutable (hashable).
+Note: {1, True} are treated as duplicates because 1 == True in Python.
+"""
 
 
-#Joining set
-set1 = {"a", "b", "c"}
-set2 = {1, 2, 3, "a"}
-print(f'Set 1 : {set1}')
-print(f'Set 2 : {set2}')
+def set_revision():
+    # 1. Initialization
+    # Sets are unordered and do not allow duplicates.
+    colors = {'red', 'blue', 'green', 'red'}  # Second 'red' is ignored
+    complex_colors = {'crimson red'}
+    numbers_to_add = [999]
 
-print('#Union ( set 1 | set 2 ) - will return a new set with all items from both sets.')
-set3_m= set1.union(set2)
-set3_op= set1 | set2
-print(set3_op)
-print(set3_m)
+    # TRAP: Python treats 1 and True as the same value, and 0 and False as the same.
+    # The first one encountered in the set is the one kept.
+    boolean_collision = {1, True, 0, False}
 
-print('#Intersection ( set 1 & set 2 ) - will return a new set, that only contains the items that are present in both sets')
-set4_m= set1.intersection(set2)
-set4_op= set1 & set2
-print(set4_m)
-print(set4_op)
+    print(f"Initial Set: {colors}")
+    print(f"Boolean Collision Set: {boolean_collision}")
 
-print('#Difference ( set 1 ^ set 2 ) - return a new set that will contain only the items from the first set that are not present in the other set')
-set5_m= set1.difference(set2)
-set5_op= set1 - set2
-print(set5_m)
-print(set5_op)
+    # 2. Adding Values
+    colors.add('yellow')  # Adds a single element
+    colors.update(complex_colors)  # Merges another set
+    colors.update(numbers_to_add)  # Merges a list into the set
+    print(f"After Additions: {colors}")
 
-print('#Symmetric Differences ( set 1 ^ set 2 ) - will keep only the elements that are NOT present in both sets.')
-set6_m= set1.symmetric_difference(set2)
-set6_op= set1 ^ set2
-print(set6_m)
-print(set6_op)
+    # 3. Removing Values
+    # .remove() raises KeyError if item is missing.
+    # .discard() stays silent if item is missing (safer).
+    colors.discard(999)
+    if 'red' in colors:
+        colors.remove('red')
+
+    # 4. Set Properties
+    print(f"Type: {type(colors)} | Length: {len(colors)}")
+    print(f"Is 'blue' present? {'blue' in colors}")  # O(1) lookup
+
+    # 5. Joining Sets (Mathematical Operations)
+    chars = {"a", "b", "c"}
+    mixed = {1, 2, 3, "a"}
+
+    print(f"\nSet A: {chars}")
+    print(f"Set B: {mixed}")
+
+    # Union: All items from both (O(len(A) + len(B)))
+    union_set = chars.union(mixed)  # or chars | mixed
+    print(f"Union (|): {union_set}")
+
+    # Intersection: Only common items (O(min(len(A), len(B))))
+    intersection_set = chars.intersection(mixed)  # or chars & mixed
+    print(f"Intersection (&): {intersection_set}")
+
+    # Difference: Items in A NOT in B (O(len(A)))
+    difference_set = chars.difference(mixed)  # or chars - mixed
+    print(f"Difference (-): {difference_set}")
+
+    # Symmetric Difference: Items in EITHER A or B, but NOT both
+    sym_diff_set = chars.symmetric_difference(mixed)  # or chars ^ mixed
+    print(f"Symmetric Difference (^): {sym_diff_set}")
+
+    # 6. Looping
+    print("\n--- Iterating over Set ---")
+    for color in colors:
+        print(f"Color: {color}")
+
+
+if __name__ == "__main__":
+    set_revision()

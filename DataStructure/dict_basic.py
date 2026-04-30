@@ -1,43 +1,69 @@
-# Python Dictionaries - Dictionaries is ordered, changeable, does not allow duplicate, allow different dataType
-person_dict = {
-    "first name":"abc",
-    "age" : 19, # Duplicate key are not allowed
-    "age": 20
-}
+"""
+PYTHON DICTIONARY INTERVIEW CHEAT SHEET
+-----------------------------------------------------------------------
+Property: Ordered (3.7+), Mutable, Unique Keys, Hash-Table Based.
 
-person_dict_const = dict(first_name ="John", age=29)
+OPERATION      | METHOD            | BIG O    | NOTES
+-----------------------------------------------------------------------
+Access         | dict[key]         | O(1)     | Constant time lookup.
+Insert/Update  | dict[key] = val   | O(1)     | Hash entry creation.
+Membership     | "key" in dict     | O(1)     | Fast existence check.
+Deletion       | .pop(key)         | O(1)     | Remove specific key.
+Iteration      | .items()          | O(n)     | Visit every pair once.
+-----------------------------------------------------------------------
+"""
 
-# Ways to add value
-person_dict["zip code"] = "94538" # adding new entry to dict at end
-person_dict.update({"zip code":"94540"})
 
-# Ways to change/update value
-person_dict["age"] = 21
-person_dict.update({"age":22})
+def dictionary_revision():
+    # 1. Initialization
+    # Duplicate keys are not allowed; the last assignment wins.
+    user_profile = {
+        "first_name": "abc",
+        "age": 19,
+        "age": 20  # Overwrites 19
+    }
 
-print(person_dict)
-print(type(person_dict))
-print(len(person_dict))
-print(person_dict.keys()) # Return all keys
-print(person_dict.values()) # Return all values
-print(person_dict["age"]) # Return value of key 'age'
-print(person_dict.get("age")) # Return value of key 'age'
-print(person_dict.get("address")) # Return None if not present
-print("zip code" in person_dict) # Return True of False
+    # Using the dict() constructor
+    user_alt = dict(first_name="John", age=29)
 
-# The setdefault() method returns the value of the item with the specified key. If the key does not exist, insert the key, with the specified value
-x = person_dict.setdefault("zip code","11111")
-print(x)
-x = person_dict.setdefault("country","USA")
-print(x)
+    # 2. Adding & Updating (O(1))
+    user_profile["zip_code"] = "94538"  # New entry
+    user_profile.update({"zip_code": "94540"})  # Update via update()
 
-dict_2 = person_dict.copy() #Copy to new dict
+    user_profile["age"] = 21  # Update via assignment
+    user_profile.update({"age": 22})
 
-dict_2.pop("age") # Remove specific key
-dict_2.popitem() # Remove last key
-print(dict_2)
+    print(f"Dictionary Content: {user_profile}")
+    print(f"Type: {type(user_profile)} | Size: {len(user_profile)}")
 
-print("\n--- Looping key and value of dict ---")
-for key, value in person_dict.items():
-    print(key, value)
+    # 3. Accessing Data
+    print(f"Keys View: {user_profile.keys()}")
+    print(f"Values View: {user_profile.values()}")
+    print(f"Direct Access (Age): {user_profile['age']}")
+    print(f"Safe Get (Age): {user_profile.get('age')}")
+    print(f"Safe Get (Missing Address): {user_profile.get('address')}")  # Returns None
+    print(f"Key Existence Check: {'zip_code' in user_profile}")
 
+    # 4. Special Method: .setdefault()
+    # Returns the value if key exists; if not, inserts key with the provided value.
+    zip_val = user_profile.setdefault("zip_code", "11111")
+    print(f"Setdefault (existing zip): {zip_val}")
+
+    country_val = user_profile.setdefault("country", "USA")
+    print(f"Setdefault (new country): {country_val}")
+
+    # 5. Copying & Removal
+    backup_profile = user_profile.copy()
+
+    backup_profile.pop("age")  # Removes a specific key: O(1)
+    backup_profile.popitem()  # Removes the last inserted (key, value) pair: O(1)
+    print(f"Backup after removals: {backup_profile}")
+
+    # 6. Iteration
+    print("\n--- Iterating over Items ---")
+    for key, value in user_profile.items():
+        print(f"{key}: {value}")
+
+
+if __name__ == "__main__":
+    dictionary_revision()
