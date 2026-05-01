@@ -27,10 +27,15 @@ def deque_revision():
     message_queue.append('request_b')
     message_queue.append('request_c')
 
+    # Adding to the front
+    message_queue.appendleft('request_top')
+    print(message_queue)
+
     # Removing from the start (Dequeue) - O(1)
     print(f"Processing: {message_queue.popleft()}")
-    print(f"Processing: {message_queue.popleft()}")
-    print(f"Processing: {message_queue.popleft()}")
+
+    # Removing from the end
+    print(f"Processing: {message_queue.pop()}")
 
 
 def thread_safe_queue_revision():
