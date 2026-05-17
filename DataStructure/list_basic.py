@@ -40,6 +40,9 @@ def list_revision():
     numbers.append(1)  # O(1)
     print(f"After appending 1: {numbers}")
 
+    numbers.insert(2,10) # O(n)
+    print(f"Insert 10 at index 2: {numbers}")
+
     numbers.sort()  # O(n log n) - modifies the list in-place
     print(f"Sorted: {numbers}")
 
